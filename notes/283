@@ -1,0 +1,33 @@
+"""
+LeetCode 283. 移动零 (Move Zeroes)
+难度: 简单
+分类: 数组 / 快慢双指针
+
+解题思路:
+1. 快慢双指针:
+   - slow 指针: 代表“下一个非零元素应该存放的位置”。
+   - fast 指针: 负责遍历数组，寻找非零元素。
+2. 逻辑过程:
+   - 遍历数组，当 nums[fast] != 0 时，说明找到了非零元素。
+   - 直接将 nums[slow] 和 nums[fast] 进行交换，并将 slow 右移。
+   - 这样能保证 [0, slow-1] 始终是已排好的非零元素，而尾部会自动被置 0。
+
+复杂度分析:
+- 时间复杂度: O(N)，仅遍历一遍数组。
+- 空间复杂度: O(1)，原地交换，没有使用额外空间。
+"""
+
+from typing import List
+
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        slow = 0
+        for fast in range(len(nums)):
+            # 当遇到非零元素时，将其交换到 slow 位置
+            if nums[fast] != 0:
+                if fast != slow:
+                    nums[slow], nums[fast] = nums[fast], nums[slow]
+                slow += 1
